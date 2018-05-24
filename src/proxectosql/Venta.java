@@ -9,7 +9,6 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -88,17 +87,19 @@ public class Venta implements ActionListener{
         Object e=ae.getSource();
         if(e==borr){
             c1.conectar();
-            if(nome.getText()!=null){
+            if(idade.getText().equals("")&& codigo.getText().equals("")){
             c1.borrar("delete from EquipoProg where nome='"+nome.getText()+"';");
             }
-            if(idade.getText()!=null){
+            if(nome.getText().equals("")&& codigo.getText().equals("")){
                 c1.borrar("delete from EquipoProg where idade='"+idade.getText()+"';");
             }
-            if(codigo.getText()!=null){
+            if(idade.getText().equals("")&& nome.getText().equals("")){
                 c1.borrar("delete from EquipoProg where codigo='"+codigo.getText()+"';");
             }
         
-        
+        nome.setText("");
+        idade.setText("");
+        codigo.setText("");
             c1.pechar();
         }
         if(e==cons){
@@ -124,11 +125,18 @@ public class Venta implements ActionListener{
                 modelo.addRow(new Object[]{l1.nome,l1.idade,l1.codigo});
             }
         taboa.setModel(modelo);
+        
         c1.pechar();
+        nome.setText("2");
+        idade.setText("2");
+        codigo.setText("2");
         }
         if(e==add){
             c1.conectar();
             c1.insertar(nome.getText(),Integer.parseInt(idade.getText()),codigo.getText());
+            nome.setText("");
+            idade.setText("");
+            codigo.setText("");
             c1.pechar();
         }
         if(e==act){
@@ -147,6 +155,9 @@ public class Venta implements ActionListener{
                 String var=JOptionPane.showInputDialog("Introduza o novo codigo:");
                 c1.actualizar("update EquipoProg set codigo='"+var+"' where codigo='"+codigo.getText()+"';");
             }
+            nome.setText("");
+            idade.setText("");
+            codigo.setText("");
             c1.pechar();
         }
     }
